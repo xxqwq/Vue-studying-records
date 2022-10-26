@@ -4,11 +4,7 @@
       <div class="todo-wrap">
         <MyHeader :addTodo="addTodo" />
         <List :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo" />
-        <MyFooter
-          :todos="todos"
-          :checkAllTodo="checkAllTodo"
-          :clearAllTodo="clearAllTodo"
-        />
+        <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo" />
       </div>
     </div>
   </div>
@@ -23,7 +19,11 @@ export default {
   name: "App",
   data() {
     return {
-      todos: JSON.parse(localStorage.getItem("todos")) || [],
+      todos: [
+        { id: "001", title: "吃饭", done: true },
+        { id: "002", title: "抽烟", done: true },
+        { id: "003", title: "喝酒", done: true },
+      ],
     };
   },
   methods: {
@@ -48,25 +48,17 @@ export default {
       });
     },
     //清除所有已經完成的todo
-    clearAllTodo() {
-      this.todos = this.todos.filter((todo) => {
-        return !todo.done;
-      });
-    },
+    clearAllTodo(){
+      this.todos=this.todos.filter((todo)=>{
+        return !todo.done
+      })
+    }
   },
   components: {
     MyHeader,
     MyFooter,
     Item,
     List,
-  },
-  watch: {
-    todos: {
-      handler(value) {
-        localStorage.setItem("todos", JSON.stringify(value));
-      },
-      deep: true,
-    },
   },
 };
 </script>
