@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 v-test="msg" ref="title"></h1>
+    <!-- <h1 v-test="msg" ref="title"></h1> -->
     <button @click="showDom">点我输出上方的Dom元素</button>
     <School ref="sch"/>
   </div>
