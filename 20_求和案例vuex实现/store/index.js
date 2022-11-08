@@ -35,12 +35,6 @@ const mutations = {
 const state = {
   sum: 0//当前的和
 }
-//准备getters--用于将state中的数据进行加工
-const getters={
-  bigSum(state){
-    return state.sum*10
-  }
-}
 //创建并暴露store
 export default new Vuex.Store({
   //actions:actions,
@@ -49,6 +43,5 @@ export default new Vuex.Store({
   mutations,
   //state:state,
   state,
-  getters,
 })
 //暴露(导出)store
