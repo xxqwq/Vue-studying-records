@@ -3,7 +3,7 @@
     <h1>当前求和为：{{ sum }}</h1>
     <h1>当前求和放大十倍为：{{ bigSum }}</h1>
     <h2>我在{{ school }}学习{{ subject }}</h2>
-    <h3 style="color:red">Person组件的总人数是:{{personList.length}}</h3>
+    <h3 style="color: red">Person组件的总人数是:{{ personList.length }}</h3>
     <select v-model.number="n">
       <option value="1">1</option>
       <option value="2">2</option>
@@ -26,24 +26,23 @@ export default {
     };
   },
   computed: {
-  
     //借助mapstate生成计算属性，从state中读取数据(数组写法)
-    ...mapState(["sum", "school", "subject","personList"]),
+    ...mapState("countAbout", ["sum", "school", "subject"]),
+    ...mapState("personAbout", ["personList"]),
     //借助mapGetters生成计算属性，从getters中读取数据(数组写法)
-    ...mapGetters(["bigSum"]),
+    ...mapGetters("countAbout", ["bigSum"]),
   },
   methods: {
-    incrementOdd() {
-      this.$store.dispatch("jiaOdd", this.n);
-    },
-    incrementWait() {
-      this.$store.dispatch("jiaWait", this.n);
-    },
+    // incrementOdd() {
+    //   this.$store.dispatch("jiaOdd", this.n);
+    // },
+    // incrementWait() {
+    //   this.$store.dispatch("jiaWait", this.n);
+    // },
     //借助mapMutations生成对应的方法，方法中会调用commit联系mutations（对象写法）
-    ...mapMutations({ increment: "JIA", decrement: "JIAN" }),
+    ...mapMutations("countAbout", { increment: "JIA", decrement: "JIAN" }),
     //借助mapActions生成对应的方法，方法中会调用dispatch联系actions（对象写法）
-    ...mapActions({ incrementOdd: "jiaOdd", incrementWait: "jiaWait" }),
-
+    ...mapActions("countAbout",{incrementOdd:"jiaOdd",incrementWait:"jiaWait"})
   },
   mounted() {
     const x = mapState({ he: "sum", xuexiao: "school", xueke: "subject" });
