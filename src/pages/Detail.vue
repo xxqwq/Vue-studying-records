@@ -8,9 +8,9 @@
 <script>
 export default {
   name: "Deatil",
-  mounted() {
-    console.log(this.$route);
-  },
+  // mounted() {
+  //   console.log(this.$route);
+  // },
   props:['id','title']
 };
 </script>
