@@ -7,15 +7,13 @@ import Message from "../pages/Message"
 import Detail from "../pages/Detail"
 //创建并暴露一个路由器
 const router = new VueRouter({
-  mode:'history',
   routes: [
     {
       name: "guanyu",
       path: "/about",
       component: About,
       meta: {
-        title: "关于",
-        isAuth:true
+        title: "关于"
       }
     },
     {
@@ -32,22 +30,7 @@ const router = new VueRouter({
           component: News,
           meta: {
             isAuth: true,
-            title: "新闻",
-          },
-          beforeEnter: (to, from, next) => {
-            console.log("全局前置路由守卫", to, from)
-            if (to.meta.isAuth) {//判断是否需要权限
-              if (localStorage.getItem('school') === 'atguigu') {
-                next()
-              }
-              else {
-                alert('学校名不对，无权查看')
-              }
-            }
-            else {
-
-              next()
-            }
+            title: "新闻"
           },
         },
         {
@@ -86,9 +69,26 @@ const router = new VueRouter({
     },
   ]
 })
+//全局前置路由守卫--初始化的时候、每次路由切换之前调用
+router.beforeEach((to, from, next) => {
+  console.log("全局前置路由守卫", to, from)
+
+  if (to.meta.isAuth) {//判断是否需要权限
+    if (localStorage.getItem('school') === 'atguigu') {
+      next()
+    }
+    else {
+      alert('学校名不对，无权查看')
+    }
+  }
+  else {
+
+    next()
+  }
+})
+//全局前置路由守卫--初始化的时候、每次路由切换之后调用
 router.afterEach((to, from) => {
   console.log("全局后置路由守卫", to, from)
   document.title = to.meta.title || "硅谷系统"
 })
-
 export default router
